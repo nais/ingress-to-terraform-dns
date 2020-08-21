@@ -1,0 +1,5 @@
+.idea/
+node_modules/
+cronjob.yaml
+ingress.yaml
+ingress2.yaml
