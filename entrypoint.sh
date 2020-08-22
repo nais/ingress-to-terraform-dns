@@ -8,11 +8,12 @@ fi
 
 git clone "https://$GH_TOKEN@github.com/navikt/iac"
 
-cd iac
+cd iac || exit 1
 
 mv ../records.tf "${RECORDS_FILE_PATH}"
 
 cat "${RECORDS_FILE_PATH}"
 
-git commit ${RECORDS_FILE_PATH} -m "Added records from cluster ingresses" || echo "No changes to commit"
+git add "${RECORDS_FILE_PATH}"
+git commit -m "Added records from cluster ingresses" || echo "No changes to commit"
 git push origin master
