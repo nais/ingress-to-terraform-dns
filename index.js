@@ -26,7 +26,7 @@ k8sApi.listIngressForAllNamespaces().then((res) => {
     const distinctIngresses = [...new Set(ingresses)]
 
     const terraformResources = distinctIngresses.map(item => `resource "google_dns_record_set" "${item.replace(/\./g, "_")}" {
-  name = "${item}"
+  name = "${item}."
   type = "A"
   ttl  = 300
   managed_zone = "${dnsZone}"
