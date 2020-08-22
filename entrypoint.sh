@@ -18,5 +18,5 @@ git config --global user.email "ingress-to-terraform-dns@nav.no"
 git config --global user.name "Inger S. Terraformsen"
 
 git add "${RECORDS_FILE_PATH}"
-git commit -m "Added records from cluster ingresses" || echo "No changes to commit"
+git commit -m "Updated records from cluster ingresses" || echo "No changes to commit"
 git push "https://$GH_TOKEN@github.com/navikt/iac"
