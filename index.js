@@ -1,6 +1,6 @@
 const k8s = require('@kubernetes/client-node')
 
-const requiredEnvs = ["INGRESS_SUFFIX", "DNS_ZONE", "RECORD_IP"]
+const requiredEnvs = ["DNS_ZONE", "RECORD_IP", "INGRESS_SUFFIX"]
 
 requiredEnvs.forEach(item => {
     if (!process.env[item]) {
@@ -9,9 +9,10 @@ requiredEnvs.forEach(item => {
     }
 })
 
-const ingressSuffix = process.env["INGRESS_SUFFIX"]
 const dnsZone = process.env["DNS_ZONE"]
 const recordIP = process.env["RECORD_IP"]
+const ingressSuffix = process.env["INGRESS_SUFFIX"]
+const ignoreIngressSuffix = process.env["IGNORE_INGRESS_SUFFIX"]
 
 const kc = new k8s.KubeConfig()
 kc.loadFromDefault()
@@ -22,6 +23,7 @@ k8sApi.listIngressForAllNamespaces().then((res) => {
         .flatMap(item => item.spec.rules)
         .map(item => item.host)
         .filter(item => item.endsWith(ingressSuffix))
+        .filter(item => !item.endsWith(ignoreIngressSuffix))
 
     const distinctIngresses = [...new Set(ingresses)]
 
