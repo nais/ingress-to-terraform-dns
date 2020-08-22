@@ -19,4 +19,4 @@ git config --global user.name "Inger S. Terraformsen"
 
 git add "${RECORDS_FILE_PATH}"
 git commit -m "Added records from cluster ingresses" || echo "No changes to commit"
-git push origin master
+git push "https://$GH_TOKEN@github.com/navikt/iac"
