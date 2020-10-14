@@ -10,5 +10,5 @@ Creates Terraform Google Cloud DNS resources (A record) from cluster ingresses w
 
 ## optional env variables 
 
-- INGORE_INGRESS_SUFFIX - e.g. specifying x.acme.org will filter all entries matching that suffix.
+- IGNORE_INGRESS_SUFFIX - e.g. specifying x.acme.org will filter all entries matching that suffix.
 
