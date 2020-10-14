@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "exports ingresses",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
-  "author": "",
+  "author": "jhrv",
   "license": "MIT",
   "dependencies": {
-    "@kubernetes/client-node": "^0.12.0"
+    "@kubernetes/client-node": "^0.12.2"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.11.5",
+    "jest": "^26.5.3"
   }
 }

@@ -1,6 +1,6 @@
 .idea/
 node_modules/
-cronjob.yaml
-ingress.yaml
-ingress2.yaml
-ingress3.yaml
+hack/
+hack/ingress.yaml
+hack/ingress2.yaml
+hack/ingress3.yaml
