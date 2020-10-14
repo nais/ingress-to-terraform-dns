@@ -1,7 +1,7 @@
-import {config} from "./src/config.js";
-import {getIngressesOrDie} from "./src/kubernetes.js";
-import {extractHostnames} from "./src/extractor.js";
-import {toTerraformDNSResource} from "./src/terraform.js";
+import {config} from "./config.js";
+import {getIngressesOrDie} from "./kubernetes.js";
+import {extractHostnames} from "./extractor.js";
+import {toTerraformDNSResource} from "./terraform.js";
 
 async function main() {
     const allIngresses = await getIngressesOrDie();
