@@ -15,4 +15,3 @@ test('creates valid terraform record', () => {
 }
 `);
 });
-

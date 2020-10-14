@@ -9,6 +9,6 @@ export const toTerraformDNSResource = (dnsZone, recordIP) => {
   managed_zone = "${dnsZone}"
   rrdatas = ["${recordIP}"]
 }
-`
-    }
-}
+`;
+    };
+};
