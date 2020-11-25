@@ -1,0 +1,27 @@
+name: ingress-to-terraform-dns release pipeline
+
+on: [push]
+
+env:
+  image: docker.pkg.github.com/${{ github.repository }}/ingress-to-terraform-dns
+
+jobs:
+  build:
+    name: Checkout
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Generate image environment variable
+        run: |
+          version=$(./version.sh)
+          echo "version=${version}" >> $GITHUB_ENV
+          echo "IMAGE=${image}:${version}" >> $GITHUB_ENV
+      - name: Build Docker image
+        run: docker build . --tag $IMAGE
+      - name: Login to Github package registry
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo "$GITHUB_TOKEN" | docker login docker.pkg.github.com -u "$GITHUB_REPOSITORY" --password-stdin
+      - name: Push docker image
+        run: docker push $IMAGE
+
