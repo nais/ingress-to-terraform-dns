@@ -53,12 +53,7 @@ jobs:
         sed -E -i "s#image: .+#image: ${IMAGE}#" vars/dev-fss/ingress-to-terraform-dns-dev-intern-nav-no.yaml
         sed -E -i "s#image: .+#image: ${IMAGE}#" vars/prod-fss/ingress-to-terraform-dns-intern-nav-no.yaml
         sed -E -i "s#image: .+#image: ${IMAGE}#" vars/ingress-to-terraform-dns.yaml
-        cat vars/dev-fss/ingress-to-terraform-dns-dev-intern-nav-no.yaml
-        echo "-----"
-        cat vars/prod-fss/ingress-to-terraform-dns-intern-nav-no.yaml
-        echo "----"
-        cat vars/ingress-to-terraform-dns.yaml
-        #git add .
-        #git --no-pager diff --cached
-        #git commit -a -m "Bump ingress-to-terraform-dns to version ${version}"
-        #git push
+        git add .
+        git --no-pager diff --cached
+        git commit -a -m "Bump ingress-to-terraform-dns to version ${version}"
+        git push
