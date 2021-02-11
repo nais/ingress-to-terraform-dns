@@ -5,7 +5,7 @@ import {toTerraformDNSResource} from "./terraform.js";
 
 async function main() {
     const allIngresses = await getIngressesOrDie();
-    const hostnames = extractHostnames(allIngresses, config.ingressSuffix, config.ignoreIngressSuffix);
+    const hostnames = extractHostnames(allIngresses, config.ingressSuffix, config.ignoreIngressSuffix, config.ignoreIngresses);
     const terraformRecords = hostnames.map(toTerraformDNSResource(config.dnsZone, config.recordIP));
 
     terraformRecords.forEach(item => console.log(item));
