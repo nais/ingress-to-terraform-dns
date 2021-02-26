@@ -8,7 +8,7 @@ test("extracts hostnames from k8s payload with filter", () => {
         }
     };
 
-    const hostnames = extractHostnames(k8sIngressPayload, "b.no", "x.b.no");
+    const hostnames = extractHostnames(k8sIngressPayload, "b.no", "x.b.no", []);
     const expected = ['a.b.no', 'x.a.b.no']
     expect(hostnames).toStrictEqual(expected)
 });
@@ -21,8 +21,21 @@ test("extracts hostnames from k8s payload without filter", () => {
         }
     };
 
-    const hostnames = extractHostnames(k8sIngressPayload, "b.no", "");
+    const hostnames = extractHostnames(k8sIngressPayload, "b.no", "", []);
     const expected = ['a.b.no', 'x.a.b.no']
+    expect(hostnames).toStrictEqual(expected)
+});
+
+test("extracts hostnames from k8s payload with ignore list", () => {
+    const ingressHostnames = ['a.b.no', 'x.a.b.no']
+    const k8sIngressPayload = {
+        body: {
+            items: asRules(ingressHostnames)
+        }
+    };
+
+    const hostnames = extractHostnames(k8sIngressPayload, "b.no", "", ["a.b.no"]);
+    const expected = ['x.a.b.no']
     expect(hostnames).toStrictEqual(expected)
 });
 

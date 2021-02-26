@@ -1,6 +1,6 @@
 // Transforms ingress payload into a set of hostnames
 // filtered by ingressSuffix and ignoreIngressSuffix
-export const extractHostnames = (ingressPayload, ingressSuffix, ignoreIngressSuffix) => {
+export const extractHostnames = (ingressPayload, ingressSuffix, ignoreIngressSuffix, ignoreIngresses) => {
     let ingresses = ingressPayload.body.items
         .filter(item => item.spec.rules)
         .flatMap(item => item.spec.rules)
@@ -11,6 +11,9 @@ export const extractHostnames = (ingressPayload, ingressSuffix, ignoreIngressSuf
         ingresses = ingresses.filter(item => !item.endsWith(ignoreIngressSuffix));
     }
 
-    const distinctIngresses = [...new Set(ingresses)];
-    return distinctIngresses;
+    if (ignoreIngresses) {
+        ingresses = ingresses.filter(item => !ignoreIngresses.includes(item));
+    }
+
+    return [...new Set(ingresses)];
 };

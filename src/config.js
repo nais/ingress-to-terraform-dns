@@ -12,4 +12,5 @@ export const config = {
     recordIP: process.env["RECORD_IP"],
     ingressSuffix: process.env["INGRESS_SUFFIX"],
     ignoreIngressSuffix: process.env["IGNORE_INGRESS_SUFFIX"],
+    ignoreIngresses: process.env["IGNORE_INGRESSES"] ? process.env["IGNORE_INGRESSES"].split(',') : [],
 };
