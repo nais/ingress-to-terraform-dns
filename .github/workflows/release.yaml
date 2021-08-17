@@ -50,10 +50,8 @@ jobs:
         cd $NAIS_YAML
         git config user.email "aura@nav.no"
         git config user.name "NAIS deploy pipeline"
-        sed -E -i "s#image: .+#image: ${IMAGE}#" vars/dev-fss/ingress-to-terraform-dns-dev-intern-nav-no.yaml
-        sed -E -i "s#image: .+#image: ${IMAGE}#" vars/prod-fss/ingress-to-terraform-dns-intern-nav-no.yaml
-        sed -E -i "s#image: .+#image: ${IMAGE}#" vars/ingress-to-terraform-dns.yaml
+        sed -E -i "s#image: docker.pkg.github.com/nais/ingress-to-terraform-dns/ingress-to-terraform-dns:.+#image: ${IMAGE}#" vars/global.yaml
         git add .
         git --no-pager diff --cached
-        git commit -a -m "Bump ingress-to-terraform-dns to version ${version}"
+        git commit --no-verify -a -m "Bump ingress-to-terraform-dns to version ${version}"
         git push
