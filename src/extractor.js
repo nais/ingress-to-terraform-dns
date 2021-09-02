@@ -1,7 +1,7 @@
 // Transforms ingress payload into a set of hostnames
 // filtered by ingressSuffix and ignoreIngressSuffix
 export const extractHostnames = (ingressPayload, ingressSuffix, ignoreIngressSuffix, ignoreIngresses) => {
-    let ingresses = ingressPayload.items
+    let ingresses = ingressPayload.body.items
         .filter(item => item.spec.rules)
         .flatMap(item => item.spec.rules)
         .filter(item => item.host)
