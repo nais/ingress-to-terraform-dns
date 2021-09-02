@@ -39,6 +39,20 @@ test("extracts hostnames from k8s payload with ignore list", () => {
     expect(hostnames).toStrictEqual(expected)
 });
 
+test("ignores entries with empty hostnames", () => {
+    const ingressHostnames = ['a.b.no', '']
+    const k8sIngressPayload = {
+        body: {
+            items: asRules(ingressHostnames)
+        }
+    };
+
+    delete k8sIngressPayload.body.items[1].spec.rules[0].host
+    const hostnames = extractHostnames(k8sIngressPayload, "b.no", "", []);
+    const expected = ['a.b.no']
+    expect(hostnames).toStrictEqual(expected)
+});
+
 const asRules = hostnames => {
     return hostnames.map(hostname => {
         return {
