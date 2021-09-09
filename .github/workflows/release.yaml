@@ -16,6 +16,8 @@ jobs:
           version=$(./version.sh)
           echo "version=${version}" >> $GITHUB_ENV
           echo "IMAGE=${image}:${version}" >> $GITHUB_ENV
+      - name: run npm tests
+        run: docker build --target test . 
       - name: Build Docker image
         run: docker build . --tag $IMAGE
       - name: Login to Github package registry
