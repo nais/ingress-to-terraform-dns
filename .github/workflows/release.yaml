@@ -49,5 +49,5 @@ jobs:
         sed -E -i "s#image: ghcr.io/${GITHUB_REPOSITORY}:.+#image: ${IMAGE}#" vars/global.yaml
         git add .
         git --no-pager diff --cached
-        git commit --no-verify -a -m "Bump ingress-to-terraform-dns to version ${version}"
+        git commit --no-verify -a -m "Bump to ${IMAGE}"
         git push
