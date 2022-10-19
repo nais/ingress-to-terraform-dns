@@ -8,13 +8,13 @@ spec:
   failedJobsHistoryLimit: 5
   concurrencyPolicy: Forbid
   jobTemplate:
-    securityContext:
-      {{- toYaml .Values.podSecurityContext | nindent 6 }}
     spec:
       template:
         metadata:
           labels: {{ include "ingress-to-terraform-dns.selectorLabels" . | nindent 12 }}
         spec:
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12}}
           activeDeadlineSeconds: 300
           containers:
             - name: {{ .Release.Name }}
