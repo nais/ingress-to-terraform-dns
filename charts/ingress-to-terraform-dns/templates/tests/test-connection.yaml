@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "{{ include "ingress-to-terraform-dns.fullname" . }}-test-connection"
+  labels:
+    {{- include "ingress-to-terraform-dns.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['{{ include "ingress-to-terraform-dns.fullname" . }}:{{ .Values.service.port }}']
+  restartPolicy: Never

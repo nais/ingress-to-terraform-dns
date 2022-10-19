@@ -1,0 +1,20 @@
+{{ if .Values.alert.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{.Release.Name}}
+spec:
+  groups:
+    - name: {{.Release.Name }}
+      rules:
+        - alert: ingress-to-terrafor-dns has not run for 30 minutes
+          expr: kube_job_status_failed{job_name=~"ingress-to-terraform-dns.*"} > 1
+          for: 1m
+          annotations:
+            consequence: Application is unavailable
+            action: "Check if CronJob -> Job -> pod has run successfull\n\nUsual culprit is GitHub, check status at https://www.githubstatus.com/"
+            summary: "Job is scheduled to run every other minute, and is responsible for creating dns records for certain ingresses in the cluster. Records are created here: https://github.com/navikt/IaC/.\n\nConsequence: new ingresses will not get public DNS records"
+          labels:
+            namespace: {{  .Release.Namespace }}
+            severity: critical
+{{ end }}

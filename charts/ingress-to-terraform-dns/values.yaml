@@ -1,0 +1,17 @@
+githubSecret: ""
+alert:
+  enabled: false
+schedule: "*/2 * * * *"
+image:
+  repository: "europe-north1-docker.pkg.dev/nais-io/nais/images/ingress-to-terraform-dns"
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+dnsZone: ""
+recordIP: ""
+ingressSuffix: ""
+ignoreIngressSuffix: ""
+ignoreIngresses: ""
+recordsFilePath: ""
+httpProxy: "http://webproxy-nais.nav.no:8088"
+noProxy: "10.254.0.1"

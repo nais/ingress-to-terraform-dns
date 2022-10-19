@@ -1,0 +1,50 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  schedule: {{ .Values.schedule }}
+  startingDeadlineSeconds: 300
+  failedJobsHistoryLimit: 5
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: {{ include "ingress-to-terraform-dns.selectorLabels" | nindent 6 }}
+        spec:
+          activeDeadlineSeconds: 300 # If the pod runs for more than 5 minutes, assume it's hanging.
+          containers:
+            - name: {{ .Release.Name }}
+              image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                - name: DNS_ZONE
+                  value: {{ .Values.dnsZone }}
+                - name: RECORD_IP
+                  value: {{ .Values.recordIP }}
+                - name: INGRESS_SUFFIX
+                  value: {{ .Values.ingressSuffix }}
+                - name: IGNORE_INGRESS_SUFFIX
+                  value: {{ .Values.ignoreIngressSuffix }}
+                - name: IGNORE_INGRESSES
+                  value: {{ .Values.ignoreIngresses }}
+                - name: RECORDS_FILE_PATH
+                  value: {{ .Values.recordsFilePath }}
+                - name: HTTPS_PROXY
+                  value: {{ .Values.httpProxy }}
+                - name: NO_PROXY
+                  value: {{ .Values.noProxy }}
+              envFrom:
+                - secretRef:
+                    name: {{ .Release.Name }}
+              resources:
+                requests:
+                  memory: "128Mi"
+                  cpu: "250m"
+                limits:
+                  memory: "256Mi"
+                  cpu: "500m"
+          serviceAccountName: {{ .Release.Name }}
+          restartPolicy: Never
