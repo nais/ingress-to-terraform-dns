@@ -4,7 +4,7 @@ alert:
 schedule: "*/2 * * * *"
 image:
   repository: "europe-north1-docker.pkg.dev/nais-io/nais/images/ingress-to-terraform-dns"
-  tag: "latest"
+  tag: "master"
   pullPolicy: IfNotPresent
 
 dnsZone: ""
