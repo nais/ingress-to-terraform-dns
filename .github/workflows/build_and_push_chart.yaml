@@ -34,11 +34,11 @@ jobs:
       - uses: azure/setup-helm@v3
         name: 'Setup Helm'
         with:
-          version: '3.8.0'
+          version: '3.10.0'
 
       - name: Build Chart
         run: |-
-          helm package charts
+          helm package charts/ingress-to-terraform-dns
       - name: Push Chart
         run: |-
           helm push ingress-to-terraform-dns*.tgz oci://europe-north1-docker.pkg.dev/nais-io/nais
