@@ -8,6 +8,8 @@ spec:
   failedJobsHistoryLimit: 5
   concurrencyPolicy: Forbid
   jobTemplate:
+    securityContext:
+      {{- toYaml .Values.podSecurityContext | nindent 6 }}
     spec:
       template:
         metadata:
@@ -45,5 +47,7 @@ spec:
                 limits:
                   memory: "256Mi"
                   cpu: "500m"
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
           serviceAccountName: {{ .Release.Name }}
           restartPolicy: Never
