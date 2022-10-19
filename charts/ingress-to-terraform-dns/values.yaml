@@ -7,11 +7,11 @@ image:
   tag: "master"
   pullPolicy: IfNotPresent
 
-dnsZone: ""
-recordIP: ""
-ingressSuffix: ""
-ignoreIngressSuffix: ""
-ignoreIngresses: ""
-recordsFilePath: ""
+dnsZone: "dnszone"
+recordIP: "recordip"
+ingressSuffix: "ingresssuffix"
+ignoreIngressSuffix: "ignoreingressuffix"
+ignoreIngresses: "ignoreingresses"
+recordsFilePath: "recordsfilepath"
 httpProxy: "http://webproxy-nais.nav.no:8088"
 noProxy: "10.254.0.1"

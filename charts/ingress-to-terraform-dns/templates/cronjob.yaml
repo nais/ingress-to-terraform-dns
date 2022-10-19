@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: {{ .Release.Name }}
 spec:
-  schedule: {{ .Values.schedule }}
+  schedule: "{{ .Values.schedule }}"
   startingDeadlineSeconds: 300
   failedJobsHistoryLimit: 5
   concurrencyPolicy: Forbid
@@ -11,10 +11,9 @@ spec:
     spec:
       template:
         metadata:
-          labels:
-            app: {{ include "ingress-to-terraform-dns.selectorLabels" | nindent 6 }}
+          labels: {{ include "ingress-to-terraform-dns.selectorLabels" . | nindent 12 }}
         spec:
-          activeDeadlineSeconds: 300 # If the pod runs for more than 5 minutes, assume it's hanging.
+          activeDeadlineSeconds: 300
           containers:
             - name: {{ .Release.Name }}
               image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
