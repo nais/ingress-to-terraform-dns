@@ -49,5 +49,11 @@ spec:
                   cpu: "500m"
               securityContext:
                 {{- toYaml .Values.securityContext | nindent 16 }}
+              volumeMounts:
+                - name: tempdir
+                  mountPath: /tmp
           serviceAccountName: {{ .Release.Name }}
           restartPolicy: Never
+          volumes:
+            - name: tempdir
+              emptyDir: {}
