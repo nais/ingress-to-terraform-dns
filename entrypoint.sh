@@ -16,9 +16,9 @@ mv ../records.tf "${RECORDS_FILE_PATH}"
 
 cat "${RECORDS_FILE_PATH}"
 
-git config --global user.email "ingress-to-terraform-dns@nav.no"
-git config --global user.name "Inger S. Terraformsen"
-git config --global pull.rebase true
+git config user.email "ingress-to-terraform-dns@nav.no"
+git config user.name "Inger S. Terraformsen"
+git config pull.rebase true
 
 git add "${RECORDS_FILE_PATH}"
 git commit -m "Updated records from cluster ingresses" || echo "No changes to commit"
