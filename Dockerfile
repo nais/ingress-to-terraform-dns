@@ -1,4 +1,4 @@
-FROM node:alpine3.14 AS test
+FROM node:18.9.1-slim AS test
 WORKDIR /app/
 ADD src/ ./src
 COPY package*.json ./
@@ -7,7 +7,7 @@ COPY .babelrc ./
 RUN npm install --production=false
 RUN npm test
 
-FROM node:alpine3.14
+FROM node:18.9.1-slim
 
 RUN apk add --no-cache git
 
